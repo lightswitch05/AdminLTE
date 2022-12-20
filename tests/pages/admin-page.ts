@@ -9,6 +9,7 @@ export abstract class AdminPage {
   readonly getStatusMemoryUsage: Locator;
   readonly getQueryOverTimeChart: Locator;
   readonly getDomainsOnAdlistStat: Locator;
+  readonly getVersionInfo: Locator;
 
   protected constructor(page: Page) {
     this.page = page;
@@ -18,6 +19,7 @@ export abstract class AdminPage {
     this.getStatusMemoryUsage = this.page.locator('section.sidebar span').getByText('Memory usage:');
     this.getQueryOverTimeChart = this.page.locator('#queryOverTimeChart');
     this.getDomainsOnAdlistStat = this.page.locator('#domains_being_blocked');
+    this.getVersionInfo = this.page.locator('footer .version-info')
   }
 
   public screenshot() {
@@ -27,8 +29,11 @@ export abstract class AdminPage {
         this.getStatusLoad,
         this.getStatusMemoryUsage,
         this.getQueryOverTimeChart,
+        this.getDomainsOnAdlistStat,
+        this.getVersionInfo,
       ],
       fullPage: true,
+      animations: 'disabled',
     });
   }
 }

@@ -6,5 +6,6 @@ test.describe('Groups', async () => {
     await expect(groupsPage.getActiveNavItem).toContainText('Groups')
     await expect(groupsPage.getGroupsList).toBeVisible();
     await expect(groupsPage.getAddGroupForm).toBeVisible();
+    await expect(await groupsPage.screenshot()).toMatchSnapshot();
   })
 });

@@ -1,14 +1,13 @@
 import {chromium, expect, FullConfig} from '@playwright/test';
+import {LoginPage} from "./pages/login-page";
 
 async function globalSetup(config: FullConfig) {
   const browser = await chromium.launch();
-  const page = await browser.newPage();
-  await page.goto(`${config.projects[0].use.baseURL}/admin/login.php`);
-  await page.getByPlaceholder('Password').fill('admin');
-  await page.getByText('Log in').click();
-  await expect(page.getByText('Total queries over last 24 hours')).toBeVisible();
-  // Save signed-in state to 'storageState.json'.
-  await page.context().storageState({ path: 'storageState.json' });
+  const loginPage = new LoginPage(await browser.newPage(), config);
+  await loginPage.goto();
+  const dashboardPage = await loginPage.login();
+  await expect(dashboardPage.getQueriesOverTime).toBeVisible();
+  await loginPage.saveAuthSession();
   await browser.close();
 }
 

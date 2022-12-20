@@ -6,5 +6,6 @@ test.describe('Clients', async () => {
     await expect(clientsPage.getActiveNavItem).toContainText('Clients')
     await expect(clientsPage.getClientsList).toBeVisible();
     await expect(clientsPage.getAddClientForm).toBeVisible();
+    await expect(await clientsPage.screenshot()).toMatchSnapshot();
   });
 });

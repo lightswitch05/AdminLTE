@@ -1,5 +1,6 @@
 import type { PlaywrightTestConfig } from '@playwright/test';
 import { devices } from '@playwright/test';
+import {LoginPage} from "./pages/login-page";
 
 /**
  * Read environment variables from file.
@@ -20,7 +21,10 @@ const config: PlaywrightTestConfig = {
      * Maximum time expect() should wait for the condition to be met.
      * For example in `await expect(locator).toHaveText();`
      */
-    timeout: 5000
+    timeout: 5000,
+    toMatchSnapshot: {
+      maxDiffPixels: 250,
+    }
   },
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -42,7 +46,7 @@ const config: PlaywrightTestConfig = {
     actionTimeout: 0,
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: 'http://dev-pihole',
-    storageState: 'storageState.json',
+    storageState: LoginPage.STORAGE_STATE_FILE,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
